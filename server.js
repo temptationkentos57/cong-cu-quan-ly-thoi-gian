@@ -10,6 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 // Kết nối MongoDB với cấu hình hợp lệ
+if (!process.env.MONGODB_URI) {
+  console.error('MONGODB_URI is not set in environment variables.');
+  process.exit(1); // Thoát ứng dụng nếu biến môi trường không được thiết lập
+}
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
