@@ -19,6 +19,12 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.error('Lỗi kết nối MongoDB: ', err);
 });
 
+// Middleware xử lý lỗi
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Có lỗi xảy ra!');
+});
+
 app.get('/', (req, res) => {
   res.send('Welcome to the Cong Cu Quan Ly Thoi Gian API!');
 });
